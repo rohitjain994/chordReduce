@@ -80,7 +80,7 @@ public class RetrieveNetwork extends Command {
             for (int i = 0; i < values.length; i++) {
                 this.out.print(values[i]);
                 if ( !(i == (values.length-1)) ) {
-                    this.out.print(",");
+                    this.out.println("");
                 }
                 this.out.print(" ");
             }
