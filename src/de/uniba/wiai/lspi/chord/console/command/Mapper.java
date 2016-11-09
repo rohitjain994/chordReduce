@@ -34,6 +34,7 @@ public class Mapper extends Command {
 	public void exec() throws ConsoleException{
 		String input = this.parameters.get(INPUT_PARAM);
 		try{
+			long startSystemTimeNano = System.currentTimeMillis();
 		    File file = new File(input.toString());
 		    FileReader fr = new FileReader(file);
 		    BufferedReader br = new BufferedReader(fr);
@@ -54,7 +55,9 @@ public class Mapper extends Command {
 			  }	    	
 		    }
 		    br.close();
-
+		    long stopSystemTimeNano = System.currentTimeMillis();
+		    this.out.println("TIME : ");
+		    this.out.println(stopSystemTimeNano - startSystemTimeNano);
 
 		}catch(IOException e){
 		e.printStackTrace();
