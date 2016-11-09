@@ -18,6 +18,13 @@ import de.uniba.wiai.lspi.chord.service.Chord;
 import de.uniba.wiai.lspi.util.console.Command;
 import de.uniba.wiai.lspi.util.console.ConsoleException;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+
 public class Hello extends Command {
 	public static final String COMMAND_NAME = "hello";
 	protected static final String NAME_PARAM = "name";
@@ -25,29 +32,29 @@ public class Hello extends Command {
 		super(toCommand1, out1);
 	}
 
-	public void exec() throws ConsoleException {
-		/*Object factory = ConsoleThread.getConsole().getCommandFactory();
-		// out.println("Factory class " + factory.getClass());
-		Field[] fields = factory.getClass().getDeclaredFields();
-		// out.println("Number of factory fields " + fields.length);
-		Field mapping = null;
-		*/
-		
+	public void exec() {
 		String name = this.parameters.get(NAME_PARAM);
-		this.out.println("You have inserted: " + name);
+		try{
+		    String verify;
+		    File file = new File(name.toString());
+		   /* file.createNewFile();
+		    FileWriter fw = new FileWriter(file);
+		    BufferedWriter bw = new BufferedWriter(fw);
+		    bw.write("Some text here for a reason");
+		    bw.flush();
+		    bw.close();*/
+		    FileReader fr = new FileReader(file);
+		    BufferedReader br = new BufferedReader(fr);
 
-		String key="abc";
-		String value=name;
-		Chord chord = ((RemoteChordNetworkAccess)this.toCommand[1]).getChordInstance(); 
-		Key keyObject = new Key(key);
-        	Value valueObject = new Value(value);
-	        try {
-        	    chord.insert(keyObject, valueObject);
-        	}
-        	catch (Throwable t){
-        	    ConsoleException e = new ConsoleException("Exception during execution of command. " + t.getMessage(), t);
-            	    throw e;
-        	}
+		    while( (verify=br.readLine()) != null ){
+		    	this.out.println(verify);
+		    }
+		    br.close();
+
+
+		}catch(IOException e){
+		e.printStackTrace();
+		}
 	}
 
 	public String getCommandName() {
@@ -58,6 +65,19 @@ public class Hello extends Command {
 		this.out.println("This is simple hello command");
 	}
 	
-
+	/*public void chordInsert (String key,String value){
+		
+		Chord chord = ((RemoteChordNetworkAccess)this.toCommand[1]).getChordInstance(); 
+		Key keyObject = new Key(key);
+        	Value valueObject = new Value(value);
+	        try {
+        	    chord.insert(keyObject, valueObject);
+        	}
+        	catch (Throwable t){
+        	    ConsoleException e = new ConsoleException("Exception during execution of command. " + t.getMessage(), t);
+            	    throw e;
+        	}
+		
+	}*/
 
 }
