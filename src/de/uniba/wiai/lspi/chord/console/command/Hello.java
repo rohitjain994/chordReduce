@@ -11,7 +11,7 @@ import de.uniba.wiai.lspi.util.console.Command;
 import de.uniba.wiai.lspi.util.console.ConsoleThread;
 public class Hello extends Command {
 	public static final String COMMAND_NAME = "hello";
-
+	protected static final String NAME_PARAM = "name";
 	public Hello(Object[] toCommand1, PrintStream out1) {
 		super(toCommand1, out1);
 	}
@@ -22,7 +22,8 @@ public class Hello extends Command {
 		Field[] fields = factory.getClass().getDeclaredFields();
 		// out.println("Number of factory fields " + fields.length);
 		Field mapping = null;
-		this.out.println("Hello");
+		String name = this.parameters.get(NAME_PARAM);
+		this.out.println("Hello "+ "-name " + name);
 
 	}
 
