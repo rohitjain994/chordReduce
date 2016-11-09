@@ -99,6 +99,8 @@ public class Main {
 		Hashtable<String, String> commandMapping = new Hashtable<String, String>();
 		commandMapping.put(ExecuteMacro.COMMAND_NAME, ExecuteMacro.class
 				.getName());
+		commandMapping.put(Hello.COMMAND_NAME, Hello.class
+				.getName());
 		commandMapping.put(Exit.COMMAND_NAME, Exit.class.getName());
 		commandMapping.put(Help.COMMAND_NAME, Help.class.getName());
 		commandMapping.put(ShowOutputCommand.COMMAND_NAME,
