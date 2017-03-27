@@ -104,6 +104,8 @@ public class Main {
 		commandMapping.put(Mapper.COMMAND_NAME, Mapper.class
 				.getName());
 		commandMapping.put(Exit.COMMAND_NAME, Exit.class.getName());
+
+		commandMapping.put(InsertData.COMMAND_NAME, InsertData.class.getName());
 		commandMapping.put(Help.COMMAND_NAME, Help.class.getName());
 		commandMapping.put(ShowOutputCommand.COMMAND_NAME,
 				ShowOutputCommand.class.getName());
