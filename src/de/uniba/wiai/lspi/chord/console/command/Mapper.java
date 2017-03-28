@@ -1,15 +1,8 @@
 package de.uniba.wiai.lspi.chord.console.command;
 
 import java.io.PrintStream;
-import java.lang.reflect.Field;
-import java.util.Enumeration;
-import java.util.Hashtable;
-import java.util.Map;
 
 import de.uniba.wiai.lspi.util.console.Command;
-import de.uniba.wiai.lspi.util.console.ConsoleThread;
-
-import java.net.MalformedURLException;
 
 import de.uniba.wiai.lspi.chord.console.command.entry.Key;
 import de.uniba.wiai.lspi.chord.console.command.entry.Value;

@@ -4,7 +4,6 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintStream;
-import java.util.Date;
 
 import de.uniba.wiai.lspi.chord.console.command.entry.Key;
 import de.uniba.wiai.lspi.chord.console.command.entry.Value;
@@ -32,10 +31,11 @@ public class InsertData extends Command {
 		if(file.length()<= 134217728){
 			try{
 			FileInputStream inp = new FileInputStream(file);
-	        byte[] bf = new byte[(int)file.length()];
-	        inp.read(bf);
-	        String fileContent = new String(bf, "UTF-8");
-	        chordInsert(file.getName(),fileContent);
+	        byte[] bf = new byte[65536];
+	        while ((inp.read(bf))!=-1){
+		        String fileContent = new String(bf, "UTF-8");
+		        chordInsert(file.getName(),fileContent);
+		    }
 	    	}catch (FileNotFoundException e) {
 		          e.printStackTrace();
 		    } catch (IOException e) {
