@@ -82,7 +82,8 @@ public class InsertData extends Command {
         	}
         	catch (Throwable t){
         	    ConsoleException e = new ConsoleException("Exception during execution of command. " + t.getMessage(), t);
-            	    throw e;
+            	t.printStackTrace(this.out);    
+        	    throw e;
         	}
 		
 	}
