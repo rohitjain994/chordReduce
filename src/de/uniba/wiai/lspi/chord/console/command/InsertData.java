@@ -49,6 +49,9 @@ public class InsertData extends Command {
 		    } catch (IOException e) {
 		          e.printStackTrace();
 		    }
+		    finally {
+		        
+		    }
 		}else{
 			this.out.println("file size must be less than 128MB...");
 		}	
