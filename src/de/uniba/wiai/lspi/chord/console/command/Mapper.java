@@ -13,48 +13,66 @@ import de.uniba.wiai.lspi.util.console.ConsoleException;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStreamWriter;
+import java.io.Serializable;
+import java.io.Writer;
+import java.util.Scanner;
+import java.util.Set;
 
 public class Mapper extends Command {
 	public static final String COMMAND_NAME = "map";
-	protected static final String INPUT_PARAM = "input";
+	protected static final String INPUT_PARAM = "fileName";
 	public Mapper(Object[] toCommand1, PrintStream out1) {
 		super(toCommand1, out1);
 	}
 
 	public void exec() throws ConsoleException{
-		String input = this.parameters.get(INPUT_PARAM);
-		try{
-			long startSystemTimeNano = System.currentTimeMillis();
-		    File file = new File(input.toString());
-		    FileReader fr = new FileReader(file);
-		    BufferedReader br = new BufferedReader(fr);
-		    String line;
-		    while( (line=br.readLine()) != null ){
-			  int count=0;
-			  for (char c : line.toCharArray()) {
-			     if (c == ' ') {
-			       count++;
-			     }
-			  }
-			  if(count == 3){
-				String[] str_input =line.split(" ");
-				String lang = str_input[0];
-				String pageDetail = str_input[1];
-				String visits =str_input[2];
-				chordInsert(lang,pageDetail+" "+visits);				
-			  }	    	
-		    }
-		    br.close();
-		    long stopSystemTimeNano = System.currentTimeMillis();
-		    this.out.println("TIME : ");
-		    this.out.println(stopSystemTimeNano - startSystemTimeNano);
-
-		}catch(IOException e){
-		e.printStackTrace();
+		String fileName = this.parameters.get(INPUT_PARAM);
+		long startSystemTimeNano = System.currentTimeMillis();
+		String fileValue = retrieve (fileName);
+		Scanner sc = new Scanner(fileValue);
+		StringBuilder sb = new StringBuilder();
+		while( sc.hasNextLine() ){
+			String line = sc.nextLine() ;
+			int count=0;
+			for (char c : line.toCharArray()) {
+				if (c == ' ') {
+					count++;
+				}
+			}
+		  if(count == 3){
+			String[] str_input =line.split(" ");
+			String lang = str_input[0];
+			String pageDetail = str_input[1];
+			String visits =str_input[2];
+			sb.append(lang+"\t"+pageDetail+"\t"+visits+"\n");			
+		  }	    	
 		}
+		String file = "map"+fileName;
+		try {
+		    //Whatever the file path is.
+		    File statText = new File("/home/rohit/Desktop/files/"+file);
+		    FileOutputStream is = new FileOutputStream(statText);
+		    OutputStreamWriter osw = new OutputStreamWriter(is);    
+		    Writer w = new BufferedWriter(osw);
+		    w.write(sb.toString());
+		    w.close();
+		} catch (IOException e) {
+		    this.out.println("Problem writing to the file statsTest.txt");
+		}
+		chordInsert(file,sb.toString());
+		try {
+		      for (double progressPercentage = 0.0; progressPercentage < 1.0; progressPercentage += 0.01) {
+		        updateProgress(progressPercentage);
+		        Thread.sleep(500);
+		      }
+		    } catch (InterruptedException e) {}
+		this.out.println("Mapping is done !!!!!!!!!!!");
+		long stopSystemTimeNano = System.currentTimeMillis();
+		this.out.println("TIME : ");
+		this.out.println(stopSystemTimeNano - startSystemTimeNano);
 	}
 
 	public String getCommandName() {
@@ -62,7 +80,7 @@ public class Mapper extends Command {
 	}
 
 	public void printOutHelp() {
-		this.out.println("This is simple hello command");
+		this.out.println("This is the command to map file content in <key,value> format");
 	}
 	
 	public void chordInsert (String key,String value) throws ConsoleException{
@@ -80,4 +98,44 @@ public class Mapper extends Command {
 		
 	}
 
+	public String retrieve(String key) {
+	    if ( (key == null) || (key.length() == 0) ){
+	       // throw new ConsoleException("Not enough parameters! " + KEY_PARAM + " is missing.");
+	    }
+	    
+	    Key keyObject = new Key(key);
+	    String ret="";
+	    Chord chord = ((RemoteChordNetworkAccess)this.toCommand[1]).getChordInstance(); 
+	    try {
+	        Set<Serializable> vs = chord.retrieve(keyObject);
+	        Object[] values = vs.toArray(new Object[vs.size()]); 
+	        //this.out.println("Values associated with key '" + key + "': ");
+	        for (int i = 0; i < values.length; i++) {
+	          //  this.out.println(values[i]);
+	            ret=String.valueOf(values[i]);
+	            return ret;
+	        
+	        }
+	    }
+	    catch (Throwable t){
+	       
+	    }
+	  return "";   
+	}
+	void updateProgress(double progressPercentage) {
+	    final int width = 50; // progress bar width in chars
+
+	    this.out.print("\r[");
+	    int i = 0;
+	    for (; i <= (int)(progressPercentage*width); i++) {
+	      this.out.print("#");
+	    }
+	    for (; i < width; i++) {
+	      this.out.print(" ");
+	    }
+	    this.out.print("]");
+	  }
+
 }
+
+
