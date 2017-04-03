@@ -31,6 +31,7 @@ public class Mapper extends Command {
 	public void exec() throws ConsoleException{
 		String fileName = this.parameters.get(INPUT_PARAM);
 		long startSystemTimeNano = System.currentTimeMillis();
+		if(fileName.equals("mapper")){
 		String fileValue = retrieve (fileName);
 		Scanner sc = new Scanner(fileValue);
 		StringBuilder sb = new StringBuilder();
@@ -63,6 +64,7 @@ public class Mapper extends Command {
 		    this.out.println("Problem writing to the file");
 		}
 		chordInsert(file,sb.toString());
+		}
 		try {
 		      for (double progressPercentage = 0.0; progressPercentage < 1.0; progressPercentage += 0.01) {
 		        updateProgress(progressPercentage);

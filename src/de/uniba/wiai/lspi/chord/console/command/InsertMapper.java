@@ -30,7 +30,7 @@ public class InsertMapper extends Command {
 		
 		//this.out.println(input);
 		try {
-			Thread.sleep(214);
+			Thread.sleep(742);
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
