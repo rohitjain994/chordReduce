@@ -23,7 +23,7 @@ import java.util.Set;
 
 public class Mapper extends Command {
 	public static final String COMMAND_NAME = "map";
-	protected static final String INPUT_PARAM = "fileName";
+	protected static final String INPUT_PARAM = "jobId";
 	public Mapper(Object[] toCommand1, PrintStream out1) {
 		super(toCommand1, out1);
 	}
@@ -53,14 +53,14 @@ public class Mapper extends Command {
 		String file = "map"+fileName;
 		try {
 		    //Whatever the file path is.
-		    File statText = new File("/home/rohit/Desktop/files/"+file);
+		    File statText = new File("/home/raman/Desktop/files/"+file);
 		    FileOutputStream is = new FileOutputStream(statText);
 		    OutputStreamWriter osw = new OutputStreamWriter(is);    
 		    Writer w = new BufferedWriter(osw);
 		    w.write(sb.toString());
 		    w.close();
 		} catch (IOException e) {
-		    this.out.println("Problem writing to the file statsTest.txt");
+		    this.out.println("Problem writing to the file");
 		}
 		chordInsert(file,sb.toString());
 		try {
@@ -69,7 +69,7 @@ public class Mapper extends Command {
 		        Thread.sleep(500);
 		      }
 		    } catch (InterruptedException e) {}
-		this.out.println("Mapping is done !!!!!!!!!!!");
+		this.out.println("\nMapping is done !!!!!!!!!!!");
 		long stopSystemTimeNano = System.currentTimeMillis();
 		this.out.println("TIME : ");
 		this.out.println(stopSystemTimeNano - startSystemTimeNano);
