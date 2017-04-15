@@ -97,16 +97,15 @@ public class Main {
 		 * Create mapping from command name to command class
 		 */
 		Hashtable<String, String> commandMapping = new Hashtable<String, String>();
-		commandMapping.put(ExecuteMacro.COMMAND_NAME, ExecuteMacro.class
-				.getName());
-		commandMapping.put(Hello.COMMAND_NAME, Hello.class
-				.getName());
-		commandMapping.put(Mapper.COMMAND_NAME, Mapper.class
-				.getName());
+		commandMapping.put(ExecuteMacro.COMMAND_NAME, ExecuteMacro.class.getName());
+		commandMapping.put(Hello.COMMAND_NAME, Hello.class.getName());
 		commandMapping.put(Exit.COMMAND_NAME, Exit.class.getName());
 
 		commandMapping.put(InsertData.COMMAND_NAME, InsertData.class.getName());
 		commandMapping.put(InsertMapper.COMMAND_NAME, InsertMapper.class.getName());
+		commandMapping.put(Mapper.COMMAND_NAME, Mapper.class.getName());
+		commandMapping.put(InsertReducer.COMMAND_NAME, InsertReducer.class.getName());
+		commandMapping.put(Reducer.COMMAND_NAME, Reducer.class.getName());
 		commandMapping.put(Help.COMMAND_NAME, Help.class.getName());
 		commandMapping.put(ShowOutputCommand.COMMAND_NAME,
 				ShowOutputCommand.class.getName());

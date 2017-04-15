@@ -21,17 +21,17 @@ import java.io.Writer;
 import java.util.Scanner;
 import java.util.Set;
 
-public class Mapper extends Command {
-	public static final String COMMAND_NAME = "map";
+public class Reducer extends Command {
+	public static final String COMMAND_NAME = "reduce";
 	protected static final String INPUT_PARAM = "jobId";
-	public Mapper(Object[] toCommand1, PrintStream out1) {
+	public Reducer(Object[] toCommand1, PrintStream out1) {
 		super(toCommand1, out1);
 	}
 
 	public void exec() throws ConsoleException{
 		String fileName = this.parameters.get(INPUT_PARAM);
 		long startSystemTimeNano = System.currentTimeMillis();
-		if(fileName.equals("mapper")){
+		if(fileName.equals("reducer")){
 		String fileValue = retrieve (fileName);
 		Scanner sc = new Scanner(fileValue);
 		StringBuilder sb = new StringBuilder();
@@ -43,7 +43,7 @@ public class Mapper extends Command {
 					count++;
 				}
 			}
-		  if(count == 4){
+		  if(count == 3){
 			String[] str_input =line.split(" ");
 			String lang = str_input[0];
 			String pageDetail = str_input[1];
@@ -71,7 +71,7 @@ public class Mapper extends Command {
 		        Thread.sleep(500);
 		      }
 		    } catch (InterruptedException e) {}
-		this.out.println("\nMapping is done !!!!!!!!!!!");
+		this.out.println("\nReducing is done !!!!!!!!!!!");
 		long stopSystemTimeNano = System.currentTimeMillis();
 		this.out.println("TIME : ");
 		this.out.println(stopSystemTimeNano - startSystemTimeNano);
@@ -82,7 +82,7 @@ public class Mapper extends Command {
 	}
 
 	public void printOutHelp() {
-		this.out.println("This is the command to map file content in <key,value> format");
+		this.out.println("This is the command to reduce file content in <key,value> format");
 	}
 	
 	public void chordInsert (String key,String value) throws ConsoleException{
